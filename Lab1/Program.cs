@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-Console.WriteLine("Работу Выполнил\nСтудент группы ИНС-21-1\nРадченко П.П.");
+﻿Console.WriteLine("Работу Выполнил\nСтудент группы ИНС-21-1\nРадченко П.П.");
 
 for (int i = 0; i < 20; i++) 
     Console.Write("__");

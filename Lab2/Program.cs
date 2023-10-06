@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 Console.WriteLine("Работу Выполнил\nСтудент группы ИНС-21-1\nРадченко П.П.");
 
@@ -65,21 +66,36 @@ while (flagFinalProgram == 0)
 
                 Console.Write("Введите оценки через пробел (без запятых) " +
                     "\nпо Математике (можно оставить пустым)...\n> ");
+                //Считываем строку
                 tempLine = Console.ReadLine();
+
+                //удаляем двоичные пробелы
+                while (tempLine.Contains("  "))
+                    tempLine = tempLine.Replace("  ", " ");
+                //потом через Trim() убираем пробелы на концах строки
+
                 if (tempLine != "")
-                    markMath = tempLine.Split(' ').Select(int.Parse).ToArray();
+                    markMath = tempLine.Trim().Split(' ').Select(int.Parse).ToArray();
 
                 Console.Write("Введите оценки через пробел (без запятых) " +
                     "\nпо Физике (можно оставить пустым)...\n> ");
                 tempLine = Console.ReadLine();
+
+                while (tempLine.Contains("  "))
+                    tempLine = tempLine.Replace("  ", " ");
+
                 if (tempLine != "")
-                    markPhys = tempLine.Split(' ').Select(int.Parse).ToArray();
+                    markPhys = tempLine.Trim().Split(' ').Select(int.Parse).ToArray();
 
                 Console.Write("Введите оценки через пробел (без запятых) " +
                     "\nпо Русскому языку (можно оставить пустым)...\n> ");
                 tempLine = Console.ReadLine();
+
+                while (tempLine.Contains("  "))
+                    tempLine = tempLine.Replace("  ", " ");
+
                 if (tempLine != "")
-                    markRus = tempLine.Split(' ').Select(int.Parse).ToArray();
+                    markRus = tempLine.Trim().Split(' ').Select(int.Parse).ToArray();
 
                 Console.WriteLine("Введенные данные верны? 1/0");
 
@@ -87,18 +103,15 @@ while (flagFinalProgram == 0)
                 {
                     listTask.Add(new Student(id, name, className, markMath, markRus, markPhys));
                     id++;
-                    Console.WriteLine(listTask[0].getStudentInfo());
-                    Console.ReadKey();
                 }
                 break;
             }
         case '2':
             {
                 int currentID;
-                int currnetOperation;
 
                 Console.Clear();
-                Console.WriteLine("Введите ID ученика\n>");
+                Console.Write("Введите ID ученика\n> ");
                 
 
                 if (int.TryParse(Console.ReadLine(), out currentID) && listTask.Exists(x => x.ID == currentID))
@@ -108,17 +121,47 @@ while (flagFinalProgram == 0)
                     {
                         case '1': 
                             {
-                                var l = listTask.Where(x => x.ID == currentID);
+                                string tempLine;
+
+                                Console.Clear();
+                                Console.WriteLine("Введите измененный список оценок через пробел");
+                                tempLine = Console.ReadLine();
+
+                                while (tempLine.Contains("  "))
+                                    tempLine = tempLine.Replace("  ", " ");
+
+                                if (tempLine != "")
+                                    listTask.Find(x => x.ID == currentID).markPhys = tempLine.Trim().Split(' ').Select(int.Parse).ToArray();
                                 break; 
                             }
                         case '2':
                             {
+                                string tempLine;
 
+                                Console.Clear();
+                                Console.WriteLine("Введите измененный список оценок через пробел");
+                                tempLine = Console.ReadLine();
+
+                                while (tempLine.Contains("  "))
+                                    tempLine = tempLine.Replace("  ", " ");
+
+                                if (tempLine != "")
+                                    listTask.Find(x => x.ID == currentID).markRusLang = tempLine.Trim().Split(' ').Select(int.Parse).ToArray();
                                 break;
                             }
                         case '3':
                             {
+                                string tempLine;
 
+                                Console.Clear();
+                                Console.WriteLine("Введите измененный список оценок через пробел");
+                                tempLine = Console.ReadLine();
+
+                                while (tempLine.Contains("  "))
+                                    tempLine = tempLine.Replace("  ", " ");
+
+                                if (tempLine != "")
+                                    listTask.Find(x => x.ID == currentID).markMath = tempLine.Trim().Split(' ').Select(int.Parse).ToArray();
                                 break;
                             }
                         default:
@@ -138,17 +181,36 @@ while (flagFinalProgram == 0)
             }
         case '3':
             {
-                break;
+                int currentID;
+
+                Console.Clear();
+                Console.Write("Введите ID ученика\n> ");
+
+
+                if (int.TryParse(Console.ReadLine(), out currentID) && listTask.Exists(x => x.ID == currentID))
+                {
+                    listTask.Remove(listTask.Find(x => x.ID == currentID));
+                    Console.WriteLine("Запись удалена!");
+                    Console.ReadKey();
+                }
+                    break;
             }
         case '4':
             {
+                Console.Clear();
+
+                foreach (var item in listTask)
+                {
+                    Console.WriteLine($"{item.getStudentInfo()} \n ___________________________________________\n");
+                }
+
+                Console.ReadKey();
                 break;
             }
         case '0' : 
             flagFinalProgram = 1; break;
     }
 }
-
 
 
 class Student
@@ -192,8 +254,8 @@ class Student
             avgMath = 0;
 
         return $"ID: {ID}\n" + $"Имя: {Name}\t" + $"Класс: {ClassName}\n" +
-            $"Средний Балл по Математике: {avgMath}\n" +
-             $"Средний Балл по Русскому языку: {avgRus}\n" +
-              $"Средний Балл по Физике: {avgPhys}";
+            $"Средний Балл по Математике: {Math.Round(avgMath, 2)}\n" +
+             $"Средний Балл по Русскому языку: {Math.Round(avgRus, 2)}\n" +
+              $"Средний Балл по Физике: {Math.Round(avgPhys, 2)}";
     }
 }
