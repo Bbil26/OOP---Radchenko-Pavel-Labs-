@@ -59,7 +59,5 @@ namespace Logic
                 Console.Write("-----");
             Console.WriteLine();
         }
-
-        
     }
 }

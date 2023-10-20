@@ -133,7 +133,7 @@ while (flag == 1)
 
                     for (int i = 0; i < 10; i++) Console.Write("______");
                     Console.WriteLine();
-                    Console.WriteLine($"\bИгрок 1 - {player1.name} - {player1.hp} ХП\t\t" +
+                    Console.WriteLine($"Игрок 1 - {player1.name} - {player1.hp} ХП\t\t" +
                                       $"Игрок 2 - {player2.name} - {player2.hp} ХП\n");
 
                     Console.ReadKey();
@@ -190,11 +190,11 @@ class Tank : Weapons
 
         if ((tempDmg = randomDmg.Next(dmg)) <= armor)
         {
-            Console.WriteLine($"Танк {name} - не пробит");
+            Console.WriteLine($"\bТанк {name} - не пробит");
         }
         else
         {
-            Console.WriteLine($"Танк {name} получил {tempDmg - armor} урона");
+            Console.WriteLine($"\bТанк {name} получил {tempDmg - armor} урона");
             hp -= tempDmg - armor;
         }
     }

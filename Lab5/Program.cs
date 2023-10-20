@@ -3,8 +3,8 @@
 for (int i = 0; i < 20; i++)
     Console.Write("__");
 
-Console.WriteLine("\nЛабораторная работа №4\nВариант 6 – Задание 1\n");
-Console.WriteLine("Реализовать наследование классов");
+Console.WriteLine("\nЛабораторная работа №5\nВариант 6 – Задание 1\n");
+Console.WriteLine("Реализовать Интерфейсы");
 
 for (int i = 0; i < 20; i++)
     Console.Write("__");
